@@ -31,8 +31,8 @@ pipeline {
         stage("OWASP Dependency Check"){
             steps{
                 echo "Skipping due to some dependency test cases are yet to be merged to master"
-                // dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'dc'
-                // dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'dc'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
         stage("PROD Deployment"){
