@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: amigosnishant/frontend:latest
+          env:
+            - name: VITE_API_PATH
+              value: "http://backend:5000"
+          ports:
+            - containerPort: 5173
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: frontend
+spec:
+  ports:
+  - port: 5173
+    targetPort: 5173
+    nodePort: 30001
+    protocol: TCP
+  type: NodePort
+  selector:
+    app: frontend
