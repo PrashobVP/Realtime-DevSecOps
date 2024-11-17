@@ -10,7 +10,7 @@ pipeline {
                 git(
                     url: "https://github.com/PrashobVP/Realtime-DevSecOps.git",
                     branch: "master",
-                    credentialsId: "jenkins",
+                    credentialsId: "jenkins-secret",
                     changelog: true,
                     poll: true
                 )
