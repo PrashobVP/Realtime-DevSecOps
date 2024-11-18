@@ -35,37 +35,37 @@ pipeline {
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-        // stage("PROD Deployment"){
-        //     steps{
-        //         sh "helm ls"
-        //         sh "kubectl get nodes"
-        //         sh "cd /var/lib/jenkins/workspace/PROD/Helm"
-        //         sh "ls -l /var/lib/jenkins/workspace/PROD/Helm/Chart.yaml"
-        //         sh "helm upgrade --install mern-stack /var/lib/jenkins/workspace/PROD/Helm --dry-run --debug"
-        //         sh "helm upgrade --install mern-stack /var/lib/jenkins/workspace/PROD/Helm"
-        //     }
-        // }
-
-        stage("PROD Deployment") {
-            steps {
-                script {
-                    // Print the current workspace for debugging
-                    sh "echo 'Workspace path: ${WORKSPACE}'"
-                    sh "ls -l ${WORKSPACE}/Helm"
-                    // Check if Chart.yaml exists in the workspace
-                    sh """
-                    if [ -f ${WORKSPACE}/Helm/Chart.yaml ]; then
-                    echo 'Chart.yaml found'
-                    else
-                    echo 'Chart.yaml not found' && exit 1
-                    fi
-                    """
-                    // Run Helm dry-run and actual deployment
-                    sh "helm upgrade --install mern-stack ${WORKSPACE}/Helm --dry-run --debug"
-                    sh "helm upgrade --install mern-stack ${WORKSPACE}/Helm"
-                }
+        stage("PROD Deployment"){
+            steps{
+                sh "helm ls"
+                sh "kubectl get nodes"
+                sh "cd /var/lib/jenkins/workspace/PROD/Helm"
+                sh "ls -l /var/lib/jenkins/workspace/PROD/Helm/Chart.yaml"
+                sh "helm upgrade --install mern-stack /var/lib/jenkins/workspace/PROD/Helm --dry-run --debug"
+                sh "helm upgrade --install mern-stack /var/lib/jenkins/workspace/PROD/Helm"
             }
         }
+
+        // stage("PROD Deployment") {
+        //     steps {
+        //         script {
+        //             // Print the current workspace for debugging
+        //             sh "echo 'Workspace path: ${WORKSPACE}'"
+        //             sh "ls -l ${WORKSPACE}/Helm"
+        //             // Check if Chart.yaml exists in the workspace
+        //             sh """
+        //             if [ -f ${WORKSPACE}/Helm/Chart.yaml ]; then
+        //             echo 'Chart.yaml found'
+        //             else
+        //             echo 'Chart.yaml not found' && exit 1
+        //             fi
+        //             """
+        //             // Run Helm dry-run and actual deployment
+        //             sh "helm upgrade --install mern-stack ${WORKSPACE}/Helm --dry-run --debug"
+        //             sh "helm upgrade --install mern-stack ${WORKSPACE}/Helm"
+        //         }
+        //     }
+        // }
 
     }
 }
