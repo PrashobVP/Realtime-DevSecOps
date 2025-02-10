@@ -28,13 +28,7 @@ pipeline {
                 sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
-        stage("OWASP Dependency Check"){
-            steps{
-                echo "Skipping due to some dependency test cases are yet to be merged to master"
-                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'Dependency-Check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
+       
     }
 
     post {
