@@ -4,10 +4,6 @@ pipeline {
         SONAR_HOME = tool "Sonar"
     }
 
-    tools {
-        dependencyCheck 'Dependency-Check'  // Ensure this matches the installed name
-    }
-
     stages {
         stage("Code Checkout"){ 
             steps{
