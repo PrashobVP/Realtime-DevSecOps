@@ -4,6 +4,11 @@ pipeline {
         SONAR_HOME = tool "Sonar"
          
     }
+
+    tools {
+    dependencyCheck 'Dependency-Check'
+    }
+
     stages {
         stage("Code Checkout"){ 
             steps{
