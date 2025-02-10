@@ -2,11 +2,10 @@ pipeline {
     agent any
     environment {
         SONAR_HOME = tool "Sonar"
-         
     }
 
     tools {
-    dependencyCheck 'Dependency-Check'
+        dependencyCheck 'Dependency-Check'  // Ensure this matches the installed name
     }
 
     stages {
@@ -30,20 +29,16 @@ pipeline {
         }
         stage("Trivy File System Scan"){
             steps{
-                sh "trivy fs --format  table -o trivy-fs-report.html ."
+                sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
         stage("OWASP Dependency Check"){
             steps{
                 echo "Skipping due to some dependency test cases are yet to be merged to master"
-                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'dc'
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'Dependency-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-      
-
-        
-
     }
 
     post {
