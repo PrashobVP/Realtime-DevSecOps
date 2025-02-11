@@ -16,6 +16,7 @@ pipeline {
                 )
             }
         }
+
         stage("SonarQube Code Analysis") {
             steps {
                 withSonarQubeEnv("Sonar") {
@@ -23,18 +24,26 @@ pipeline {
                 }
             }
         }
+
         stage("Trivy File System Scan"){
             steps{
                 sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
 
+        // Local Deployment using Docker Compose
         stage("Deployment to Dockerhost"){
-            steps{
-                sh "docker-compose up -d"
-                
-       
+            steps {
+                script {
+                    sh "docker-compose up -d"
+                }
+            }
+        }
     }
 
-    
+    post {
+        always {
+            echo "Deployment completed."
+        }
+    }
 }
